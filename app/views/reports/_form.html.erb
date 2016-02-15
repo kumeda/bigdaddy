@@ -1,0 +1,52 @@
+<%= form_for @report, :html => { :class => "form-horizontal", :multipart => true } do |f| %>
+  <% if @report.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@report.errors.count, "error") %> prohibited this report from being saved:</h2>
+
+      <ul>
+      <% @report.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <div class="row" ng-controller="MyCtrl">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input autocomplete="off" class="form-control" type="text" id="report_spot_on_yelp" name="report[spot_on_yelp]"
+                       ng-model="selected_spot" uib-typeahead="spot as spot.display for spot in getSpot($viewValue)"
+                       ng-init="selected_spot='<%= "#{@spot_on_yelp[:display]}" %>'" placeholder="レストラン検索"/>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <p>Near</p>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <input autocomplete="off" class="form-control" type="text" id="report_yelp_support" name="report[yelp_support]"
+                       ng-model="selected_city" uib-typeahead="city as city.display for city in getCity($viewValue)"
+                       ng-init="selected_city='<%= "#{@city.name}, #{@city.county.state.two_digit_code}" %>'" />
+            </div>
+        </div>
+        <input type="hidden" id="report_yelp_business_id" name="report[yelp_business_id]" value="{{selected_spot.id}}">
+    </div>
+
+    <div class="form-group">
+      <%= f.text_field :title, { :class => "form-control", :placeholder => "タイトル" } %>
+    </div>
+
+    <div class="form-group">
+      <%= f.text_area :content, { :class => "form-control", :placeholder => "感動したことを書いてください" } %>
+    </div>
+
+    <div class="form-group">
+      <%= image_tag @report.image.url if @report.image? %>
+      <%= f.file_field :image %>
+      <%= f.hidden_field :image_cache %>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-default">Send</button>
+    </div>
+<% end %>

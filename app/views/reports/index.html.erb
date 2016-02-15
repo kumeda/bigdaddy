@@ -1,0 +1,75 @@
+<!-- Page Content -->
+<div class="container">
+
+  <!-- Page Header -->
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">Latest Report</h1>
+    </div>
+  </div>
+  <!-- /.row -->
+
+  <!-- Projects Row -->
+  <% @reports.each_with_index { |report, idx| %>
+      <% if idx % 3 == 0 then %><div class="row"><% end %>
+          <div class="col-md-4 portfolio-item">
+            <a href="#">
+              <%= link_to image_tag(report.image.url, :width => 350), report %>
+              <!--<img class="img-responsive" src="http://placehold.it/700x400" alt="">-->
+            </a>
+            <h3>
+              <%= link_to report.title, report %>
+            </h3>
+            <p><%= report.content %></p>
+          </div>
+      <% if idx % 3 == 2 then %></div><% end %>
+  <% } %>
+  <% if @reports.count % 3 != 0 %></div><% end %>
+  <!-- /.row -->
+
+  <hr>
+
+  <!-- Pagination -->
+  <div class="row text-center">
+    <div class="col-lg-12">
+      <ul class="pagination">
+        <li>
+          <a href="#">&laquo;</a>
+        </li>
+        <li class="active">
+          <a href="#">1</a>
+        </li>
+        <li>
+          <a href="#">2</a>
+        </li>
+        <li>
+          <a href="#">3</a>
+        </li>
+        <li>
+          <a href="#">4</a>
+        </li>
+        <li>
+          <a href="#">5</a>
+        </li>
+        <li>
+          <a href="#">&raquo;</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- /.row -->
+
+  <hr>
+
+  <!-- Footer -->
+  <footer>
+    <div class="row">
+      <div class="col-lg-12">
+        <p>Copyright &copy; Your Website 2014</p>
+      </div>
+    </div>
+    <!-- /.row -->
+  </footer>
+
+</div>
+<!-- /.container -->

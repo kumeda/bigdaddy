@@ -16,7 +16,7 @@
             <div class="form-group">
                 <input autocomplete="off" class="form-control" type="text" id="report_spot_on_yelp" name="report[spot_on_yelp]"
                        ng-model="selected_spot" uib-typeahead="spot as spot.display for spot in getSpot($viewValue)"
-                       ng-init="selected_spot='<%= "#{@spot_on_yelp[:display]}" %>'" placeholder="レストラン検索"/>
+                       ng-init="selected_spot='<%= "#{@spot_on_yelp[:display] if @spot_on_yelp}" %>'" placeholder="レストラン検索"/>
             </div>
         </div>
         <div class="col-md-1">

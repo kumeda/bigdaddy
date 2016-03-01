@@ -1,8 +1,6 @@
 <%= form_for @user, :html => { :class => "form-horizontal", :multipart => true } do |f| %>
   <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
+    <div class="alert alert-danger">
       <ul>
       <% @user.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -15,25 +13,32 @@
       <%= f.text_field :email, { :class => "form-control", :placeholder => "メールアドレス" } %>
     </div>
 
-    <div class="form-group">
-      <%= f.password_field :password, { :class => "form-control", :placeholder => "パスワード" } %>
-    </div>
+    <% if @user.new_record? %>
+        <div class="form-group">
+          <%= f.password_field :password, { :class => "form-control", :placeholder => "パスワード" } %>
+        </div>
 
-    <div class="form-group">
-      <%= f.password_field :password_confirmation, { :class => "form-control", :placeholder => "パスワード確認" } %>
-    </div>
+        <div class="form-group">
+          <%= f.password_field :password_confirmation, { :class => "form-control", :placeholder => "パスワード確認" } %>
+        </div>
+    <% end %>
 
     <div class="form-group">
       <%= f.text_field :name, { :class => "form-control", :placeholder => "お名前" } %>
     </div>
 
     <div class="form-group">
-      <%= f.text_field :description, { :class => "form-control", :placeholder => "肩書き（例：在住１年 自称食通）" } %>
+      <%= f.text_field :title, { :class => "form-control", :placeholder => "肩書き（例：在住１年 自称食通）" } %>
+    </div>
+
+    <div class="form-group">
+      <%= f.text_area :description, { :class => "form-control", :placeholder => "自己紹介", :rows => "10" } %>
     </div>
 
     <div class="form-group" ng-controller="MyCtrl">
-        <input autocomplete="off" class="form-control" type="text" id="report_yelp_support" name="report[yelp_support]"
+        <input autocomplete="off" class="form-control" type="text" id="user_city_support" name="user[city_support]"
                ng-model="selected_city" uib-typeahead="city as city.display for city in getCity($viewValue)"
+               ng-init="selected_city='<%= "#{@city.name}, #{@city.county.state.two_digit_code}" %>'"
                placeholder="住んでいるCity(例：Mountain View)" />
         <input type="hidden" id="user_city_id" name="user[city_id]" value="{{selected_city.id}}">
     </div>

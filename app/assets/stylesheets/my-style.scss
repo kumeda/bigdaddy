@@ -1,0 +1,17 @@
+/* Customize container */
+@media (min-width: 768px) {
+  .container-narrow {
+    max-width: 730px;
+  }
+}
+
+.container-narrow {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.container-narrow > hr {
+  margin: 30px 0;
+}

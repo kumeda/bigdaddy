@@ -1,3 +1,5 @@
+include ConstDefinition
+
 class ApplicationController < ActionController::Base
   require 'yelp'
 
@@ -17,6 +19,14 @@ class ApplicationController < ActionController::Base
   private
   def not_authenticated
     redirect_to login_url, :alert => "First log in to view this page."
+  end
+
+  def only_admin
+    redirect_to :root if current_user.right != ADMIN_RIGHT
+  end
+
+  def only_admin_and_company
+    redirect_to :root if current_user.right != ADMIN_RIGHT and current_user.right != COMPANY_RIGHT
   end
 
 end

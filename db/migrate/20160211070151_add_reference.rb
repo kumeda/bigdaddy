@@ -6,8 +6,8 @@ class AddReference < ActiveRecord::Migration
     add_reference :counties, :state, index: true
     add_reference :cities, :county, index: true
     add_reference :zips, :city, index: true
-    add_reference :zips, :spot
 
     add_reference :spots, :city, index: true
+    add_reference :users, :city, index: true
   end
 end

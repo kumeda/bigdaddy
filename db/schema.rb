@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160215063858) do
+ActiveRecord::Schema.define(version: 20160301065918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20160215063858) do
   end
 
   add_index "cities", ["county_id"], name: "index_cities_on_county_id", using: :btree
+  add_index "cities", ["name"], name: "index_cities_on_name", using: :btree
 
   create_table "counties", force: :cascade do |t|
     t.string   "name",       null: false
@@ -32,16 +33,17 @@ ActiveRecord::Schema.define(version: 20160215063858) do
     t.integer  "state_id"
   end
 
+  add_index "counties", ["name"], name: "index_counties_on_name", using: :btree
   add_index "counties", ["state_id"], name: "index_counties_on_state_id", using: :btree
 
   create_table "reports", force: :cascade do |t|
     t.string   "title",      null: false
     t.text     "content",    null: false
+    t.string   "image",      null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "user_id"
     t.integer  "spot_id"
-    t.string   "image"
   end
 
   add_index "reports", ["spot_id"], name: "index_reports_on_spot_id", using: :btree
@@ -50,15 +52,19 @@ ActiveRecord::Schema.define(version: 20160215063858) do
   create_table "spots", force: :cascade do |t|
     t.string   "name",             null: false
     t.string   "yelp_url",         null: false
+    t.float    "latitude",         null: false
+    t.float    "longitude",        null: false
+    t.string   "display_address",  null: false
+    t.string   "yelp_business_id", null: false
+    t.string   "yelp_image_url",   null: false
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
-    t.float    "latitude"
-    t.float    "longitude"
-    t.string   "display_address"
-    t.integer  "yelp_business_id"
     t.integer  "city_id"
-    t.string   "yelp_image_url"
   end
+
+  add_index "spots", ["city_id"], name: "index_spots_on_city_id", using: :btree
+  add_index "spots", ["name"], name: "index_spots_on_name", using: :btree
+  add_index "spots", ["yelp_business_id"], name: "index_spots_on_yelp_business_id", using: :btree
 
   create_table "states", force: :cascade do |t|
     t.string   "name",           null: false
@@ -67,17 +73,23 @@ ActiveRecord::Schema.define(version: 20160215063858) do
     t.datetime "updated_at",     null: false
   end
 
+  add_index "states", ["name"], name: "index_states_on_name", using: :btree
+  add_index "states", ["two_digit_code"], name: "index_states_on_two_digit_code", using: :btree
+
   create_table "users", force: :cascade do |t|
-    t.string   "name",                         null: false
-    t.string   "description",                  null: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.string   "icon_image"
     t.string   "email",                        null: false
+    t.string   "email_for_index",              null: false
     t.string   "crypted_password"
     t.string   "salt"
     t.string   "remember_me_token"
     t.datetime "remember_me_token_expires_at"
+    t.string   "name",                         null: false
+    t.string   "icon_image",                   null: false
+    t.string   "title"
+    t.text     "description"
+    t.integer  "right",                        null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.integer  "city_id"
   end
 
@@ -90,9 +102,9 @@ ActiveRecord::Schema.define(version: 20160215063858) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "city_id"
-    t.integer  "spot_id"
   end
 
   add_index "zips", ["city_id"], name: "index_zips_on_city_id", using: :btree
+  add_index "zips", ["code"], name: "index_zips_on_code", using: :btree
 
 end

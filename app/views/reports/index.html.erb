@@ -13,14 +13,21 @@
   <% @reports.each_with_index { |report, idx| %>
       <% if idx % 3 == 0 then %><div class="row"><% end %>
           <div class="col-md-4 portfolio-item">
-            <a href="#">
-              <%= link_to image_tag(report.image.url, :width => 350), report %>
-              <!--<img class="img-responsive" src="http://placehold.it/700x400" alt="">-->
-            </a>
-            <h3>
-              <%= link_to report.title, report %>
-            </h3>
-            <p><%= report.content %></p>
+            <div><%= image_tag(report.image.report.thumb.url, :style => "width:100%") %></div>
+            <div>
+              <h3><%= report.title.truncate(30) %></h3>
+            </div>
+            <div>
+            <%= link_to '', report %>
+            <p><%= report.content.truncate(100) %></p>
+            <p><%= report.spot.name if report.spot %>(<%= report.spot.city.name if report.spot %>)</p>
+            <p>
+              <span><%= image_tag(report.user.icon_image_url, :class => "img-circle", :width => 30, :height => 30) %></span>
+              <span><%= report.user.name %></span>
+              <span><%= report.user.title %></span>
+              <span class="pull-right"><%= report.updated_at.strftime("%Y-%m-%d") %></span>
+            </p>
+            </div>
           </div>
       <% if idx % 3 == 2 then %></div><% end %>
   <% } %>
@@ -32,44 +39,9 @@
   <!-- Pagination -->
   <div class="row text-center">
     <div class="col-lg-12">
-      <ul class="pagination">
-        <li>
-          <a href="#">&laquo;</a>
-        </li>
-        <li class="active">
-          <a href="#">1</a>
-        </li>
-        <li>
-          <a href="#">2</a>
-        </li>
-        <li>
-          <a href="#">3</a>
-        </li>
-        <li>
-          <a href="#">4</a>
-        </li>
-        <li>
-          <a href="#">5</a>
-        </li>
-        <li>
-          <a href="#">&raquo;</a>
-        </li>
-      </ul>
+      <%= paginate @reports %>
     </div>
   </div>
   <!-- /.row -->
-
-  <hr>
-
-  <!-- Footer -->
-  <footer>
-    <div class="row">
-      <div class="col-lg-12">
-        <p>Copyright &copy; Your Website 2014</p>
-      </div>
-    </div>
-    <!-- /.row -->
-  </footer>
-
 </div>
 <!-- /.container -->

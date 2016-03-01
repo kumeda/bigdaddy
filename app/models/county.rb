@@ -1,7 +1,47 @@
-class County < ActiveRecord::Base
-  belongs_to :state, inverse_of: :counties
-  has_many   :cities, inverse_of: :county, dependent: :destroy
+# == Schema Information
+#
+# Table name: counties
+#
+#  id         :integer          not null, primary key
+#  name       :string           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  state_id   :integer
+#
 
-  validates :state, presence: true
-  validates :name,  presence: true, uniqueness: {case_sensitive: false, scope: :state_id}
+class County < ActiveRecord::Base
+
+  include RegexDefinition
+
+  ### relation
+  belongs_to :state
+  has_many   :cities
+
+  ### before ###
+
+
+  ### verify ###
+
+  ## required
+  validates_presence_of :name
+
+  ## digits
+  # string
+  validates_length_of :name, maximum: 255
+
+  # integer
+
+
+  ## uniqueness
+  validates_uniqueness_of :name, {scope: :state_id}
+
+  ## format
+  validates_format_of :name, with: REG_ALPHA, allow_blank: true, allow_nil: true
+
+  ## other
+
+
+  ### add properties ###
+
+
 end

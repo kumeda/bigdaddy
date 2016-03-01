@@ -45,21 +45,26 @@ group :development do
   gem 'spring'
 end
 
+group :test do
+  # gem 'capybara'
+  # gem 'capybara-webkit'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner', '~> 1.2.0'
+end
+
 gem 'bootstrap3-rails'
 gem "sorcery"
-gem 'factory_girl_rails'
 
-# #Image
-# gem 'rmagick'
-# gem 'paperclip', :git=> 'https://github.com/thoughtbot/paperclip', :ref => '523bd46c768226893f23889079a7aa9c73b57d68'
-#
-# #AWS
-# gem 'aws-sdk'
-
-gem 'carrierwave'
-gem 'fog'
+gem 'carrierwave',github: 'carrierwaveuploader/carrierwave'
+gem 'mini_magick'
+gem 'fog-aws'
 gem 'yelp', require: 'yelp'
 
 gem 'rails-assets-angular'
 gem 'rails-assets-angular-resource'
 gem 'rails-assets-angular-ui-bootstrap-bower'
+
+gem 'annotate'
+
+gem 'kaminari'

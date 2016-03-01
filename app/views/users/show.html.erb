@@ -1,38 +1,75 @@
 <!-- Page Content -->
-<div class="container">
-
-  <!-- Page Header -->
-  <div class="row">
-    <div class="col-lg-12">
-      <h1 class="page-header">Show User</h1>
-    </div>
-  </div>
-  <!-- /.row -->
+<div class="container-narrow">
 
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+  <div class="row">
+    <div class="col-lg-12">
+    <h1>My Account</h1>
+    </div>
+  </div>
+  <table class="table">
+    <thead>
+      <th class="col-md-3"></th>
+      <th class="col-md-9"></th>
+    </thead>
+    <tr>
+      <td class="text-right">おなまえ</td>
+      <td><%= @user.name %></td>
+    </tr>
+    <tr>
+      <td class="text-right">メールアドレス</td>
+      <td><%= @user.email %></td>
+    </tr>
+    <tr>
+      <td class="text-right">イメージ</td>
+      <td><%= image_tag @user.icon_image_url %></td>
+    </tr>
+    <tr>
+      <td class="text-right">肩書き</td>
+      <td><%= @user.title %></td>
+    </tr>
+    <tr>
+      <td class="text-right">自己紹介</td>
+      <td><%= @user.description %></td>
+    </tr>
+    <tr>
+      <td class="text-right">住んでる場所</td>
+      <td><%= @user.city.name %></td>
+    </tr>
+  </table>
+  <div>
+    <span><%= link_to 'Edit', edit_user_path(@user), { :class => "btn btn-primary" } %></span>
+    <span><%= link_to 'Password Edit', edit_password_path(@user), { :class => "btn btn-primary" } %></span>
+  </div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
-
-<p>
-  <strong>Icon image:</strong>
-  <%= @user.icon_image.url %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @user.description %>
-</p>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+  <div class="row" style="margin-top: 2em">
+    <div class="col-lg-12">
+      <h1>My Report</h1>
+    </div>
+  </div>
+  <div class="row">
+    <% if @reports %>
+        <table>
+          <thead>
+            <th class="col-md-3"></th>
+            <th class="col-md-9"></th>
+          </thead>
+          <% @reports.each { |report| %>
+            <tr>
+              <td><%= image_tag(report.image.report.thumb.url, :style => "width:100%") %></td>
+              <td>
+                <div style="margin: 1em">
+                  <p><h4><%= report.title.truncate(20) %></h4></p>
+                  <p><%= report.content.truncate(50) %></p>
+                  <p><%= link_to 'Edit', edit_report_path(report), { :class => "btn btn-primary" } %></p>
+                </div>
+              </td>
+            </tr>
+        <% } %>
+        </table>
+    <% end %>
+  </div>
 
 </div>
 <!-- /.container -->

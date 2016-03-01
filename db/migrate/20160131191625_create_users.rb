@@ -9,7 +9,6 @@ class CreateUsers < ActiveRecord::Migration
       t.datetime :remember_me_token_expires_at, :default => nil
       t.string   :name,            :null => false
       t.string   :icon_image,      :null => false
-      t.string   :title
       t.text     :description
       t.integer  :right,           :null => false
       t.timestamps                 :null => false

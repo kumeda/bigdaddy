@@ -85,7 +85,6 @@ ActiveRecord::Schema.define(version: 20160301065918) do
     t.datetime "remember_me_token_expires_at"
     t.string   "name",                         null: false
     t.string   "icon_image",                   null: false
-    t.string   "title"
     t.text     "description"
     t.integer  "right",                        null: false
     t.datetime "created_at",                   null: false

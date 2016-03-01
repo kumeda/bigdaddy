@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
 
   authenticates_with_sorcery!
 
-  def update_except_for_image_path(user_params)
+  def self.update_except_for_image_path(user_params)
     User.where(@user).update_all(name: user_params[:name], description: user_params[:description], email: user_params[:email], city_id: user_params[:city])
   end
 

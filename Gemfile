@@ -68,3 +68,5 @@ gem 'rails-assets-angular-ui-bootstrap-bower'
 gem 'annotate'
 
 gem 'kaminari'
+
+gem 'rails_12factor', group: :production

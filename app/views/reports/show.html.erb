@@ -13,14 +13,18 @@
     <%= image_tag @report.image.url(:report, :normal), :style => "width:100%" %><br>
   </p>
 
-  <p>
+  <p style="margin-top: 3em">
     <%= @report.content %>
   </p>
-
-  <p>
+  <p style="margin-top: 3em">
+    <span><%= image_tag(@report.user.icon_image_url, :class => "img-circle", :width => 25, :height => 25 ) if @report.user %></span>
+    <span><%= @report.user.name if @report.user %></span>
+    <%= @report.user.description %>
+  </p>
+  <p class="bg-warning" style="padding: 2em; margin-top: 3em">
     <%= @report.spot.name if @report.spot %>(<%= @report.spot.city.name if @report.spot %>)<br>
     <%= @report.spot.display_address if @report.spot %><br>
-    <%= @report.spot.yelp_url if @report.spot %><br>
+    <%= link_to 'yelp page', @report.spot.yelp_url, :target=>["_blank"] if @report.spot %><br>
   </p>
 
 

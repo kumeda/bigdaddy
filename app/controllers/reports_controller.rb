@@ -136,10 +136,14 @@ class ReportsController < ApplicationController
 
     zip = response.business.location.postal_code
     city = Zip.where(code: zip).first.city
+    display_address = ""
+    for address in response.business.location.display_address
+      display_address += address
+    end
     spot = Spot.new(
         :name => response.business.name,
         :city => city,
-        :display_address => response.business.location.display_address,
+        :display_address => display_address,
         :latitude => response.business.location.coordinate.latitude,
         :longitude => response.business.location.coordinate.latitude,
         :yelp_url => response.business.url,

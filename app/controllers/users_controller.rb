@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     @user.right = USER_RIGHT
 
     respond_to do |format|
-      if @user.save
+      if @user.save(context: :create_pw)
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
@@ -84,12 +84,12 @@ class UsersController < ApplicationController
       @user.password = params[:user][:new_password]
       @user.password_confirmation = params[:user][:new_password_confirmation]
       respond_to do |format|
-        if @user.save
-        format.html { redirect_to user_path(@user), notice: 'User was successfully updated.' }
-        format.json { render :show, status: :created, location: @user }
+        if @user.save(context: :create_pw)
+          format.html { redirect_to user_path(@user), notice: 'User was successfully updated.' }
+          format.json { render :show, status: :created, location: @user }
         else
-        format.html { render :edit_password }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+          format.html { render :edit_password }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
         end
       end
     else

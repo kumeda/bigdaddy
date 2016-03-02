@@ -21,12 +21,18 @@ class ReportsController < ApplicationController
   # GET /reports/new
   def new
     @report = Report.new
-    @city = current_user.city
+    @city = {
+        :id => current_user.city.id,
+        :display => "#{current_user.city.name}, #{current_user.city.county.state.two_digit_code}"
+    }
   end
 
   # GET /reports/1/edit
   def edit
-    @city = @report.spot.city
+    @city = {
+        :id => @report.spot.city.id,
+        :display => "#{@report.spot.city.name}, #{@report.spot.city.county.state.two_digit_code}"
+    }
     @spot_on_yelp = {
         :id => @report.spot.yelp_business_id,
         :display => "#{@report.spot.name} (#{@report.spot.city.name})"
@@ -38,8 +44,10 @@ class ReportsController < ApplicationController
   def create
     @report = Report.new(report_params)
     @report.user = current_user
-    @city = current_user.city
-
+    @city = {
+        :id => current_user.city.id,
+        :display => "#{current_user.city.name}, #{current_user.city.county.state.two_digit_code}"
+    }
     yelp_business_id = params[:report][:yelp_business_id]
     return render :new if yelp_business_id.blank?
 
@@ -66,7 +74,10 @@ class ReportsController < ApplicationController
   # PATCH/PUT /reports/1
   # PATCH/PUT /reports/1.json
   def update
-    @city = @report.spot.city
+    @city = {
+        :id => @report.spot.city.id,
+        :display => "#{@report.spot.city.name}, #{@report.spot.city.county.state.two_digit_code}"
+    }
 
     yelp_business_id = params[:report][:yelp_business_id]
     if yelp_business_id.blank?

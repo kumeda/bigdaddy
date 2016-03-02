@@ -15,16 +15,14 @@ class ImageUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
+  def cache_dir
+    "uploads/tmp"
+  end
+
   # Create different versions of your uploaded files:
   version :user, :if => :is_user? do
-    # version :thumb do
-      process :resize_to_fill => [50, 50, 'Center']
-      process :convert => 'jpg'
-    # end
-    # version :normal do
-    #   process :resize_to_fill => [200, 200, 'Center']
-    #   process :convert => 'jpg'
-    # end
+    process :resize_to_fill => [50, 50, 'Center']
+    process :convert => 'jpg'
   end
   version :report, :if => :is_report? do
     version :thumb do

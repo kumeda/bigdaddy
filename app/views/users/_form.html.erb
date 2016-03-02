@@ -34,7 +34,7 @@
     <div class="form-group" ng-controller="MyCtrl">
         <input autocomplete="off" class="form-control" type="text" id="user_city_support" name="user[city_support]"
                ng-model="selected_city" uib-typeahead="city as city.display for city in getCity($viewValue)"
-               ng-init="selected_city='<%= "#{@city.name if @city}, #{@city.county.state.two_digit_code if @city}" %>'"
+               ng-init="selected_city='<%= "#{@city.name + ", " if @city}#{@city.county.state.two_digit_code if @city}" %>'"
                placeholder="住んでいるCity(例：Mountain View)" />
         <input type="hidden" id="user_city_id" name="user[city_id]" value="{{selected_city.id}}">
     </div>

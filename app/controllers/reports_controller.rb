@@ -87,25 +87,17 @@ class ReportsController < ApplicationController
     update_params = report_params
     update_params[:spot] = spot
 
-    if params[:report][:image]
-      respond_to do |format|
-        if @report.update(update_params)
-          format.html { redirect_to @report, notice: 'Report was successfully updated.' }
-          format.json { render :show, status: :ok, location: @report }
-        else
-          format.html { render :edit }
-          format.json { render json: @report.errors, status: :unprocessable_entity }
-        end
-      end
-    else
-      respond_to do |format|
-        if Report.update_except_for_image_path(update_params)
-          format.html { redirect_to @report, notice: 'Report was successfully updated.' }
-          format.json { render :show, status: :ok, location: @report }
-        else
-          format.html { render :edit }
-          format.json { render json: @report.errors, status: :unprocessable_entity }
-        end
+    if params[:report][:image].blank?
+      update_params.delete(:image)
+    end
+
+    respond_to do |format|
+      if @report.update(update_params)
+        format.html { redirect_to @report, notice: 'Report was successfully updated.' }
+        format.json { render :show, status: :ok, location: @report }
+      else
+        format.html { render :edit }
+        format.json { render json: @report.errors, status: :unprocessable_entity }
       end
     end
   end

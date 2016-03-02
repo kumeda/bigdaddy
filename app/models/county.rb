@@ -23,7 +23,8 @@ class County < ActiveRecord::Base
   ### verify ###
 
   ## required
-  validates_presence_of :name
+  validates_presence_of :name,
+                        :state
 
   ## digits
   # string

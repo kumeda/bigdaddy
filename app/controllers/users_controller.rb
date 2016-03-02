@@ -33,7 +33,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    city = City.where(id: params[:user][:city_id]).first
+    city = City.find(params[:user][:city_id])
     @user.city = city
 
     @user.right = USER_RIGHT
@@ -52,25 +52,24 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    if params[:user][:icon_image]
-      respond_to do |format|
-        if @user.update(user_params)
-          format.html { redirect_to @user, notice: 'User was successfully updated.' }
-          format.json { render :show, status: :ok, location: @user }
-        else
-          format.html { render :edit }
-          format.json { render json: @user.errors, status: :unprocessable_entity }
-        end
-      end
-    else
-      respond_to do |format|
-        if User.update_except_for_image_path(user_params)
-          format.html { redirect_to @user, notice: 'User was successfully updated.' }
-          format.json { render :show, status: :ok, location: @user }
-        else
-          format.html { render :edit }
-          format.json { render json: @user.errors, status: :unprocessable_entity }
-        end
+    city = @user.city
+    if params[:user][:city_id].present?
+      city = City.find(params[:user][:city_id])
+    end
+    update_params = user_params
+    update_params[:city_id] = city.id
+
+    if params[:user][:icon_image].blank?
+      update_params.delete(:icon_image)
+    end
+
+    respond_to do |format|
+      if @user.update(update_params)
+        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.json { render :show, status: :ok, location: @user }
+      else
+        format.html { render :edit }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end

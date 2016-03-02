@@ -37,7 +37,8 @@ class User < ActiveRecord::Base
 
   ## required
   validates_presence_of :name,
-                        :email
+                        :email,
+                        :city
 
   ## digits
   # string
@@ -60,10 +61,6 @@ class User < ActiveRecord::Base
   ### add properties ###
 
   authenticates_with_sorcery!
-
-  def self.update_except_for_image_path(user_params)
-    User.where(@user).update_all(name: user_params[:name], description: user_params[:description], email: user_params[:email], city_id: user_params[:city])
-  end
 
   def icon_image_url
     if self.icon_image.url

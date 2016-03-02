@@ -33,7 +33,8 @@ class Spot < ActiveRecord::Base
                         :longitude,
                         :display_address,
                         :yelp_business_id,
-                        :yelp_image_url
+                        :yelp_image_url,
+                        :city
 
   ## insert yelp data directly, so i don't verify the data.
   ## digits

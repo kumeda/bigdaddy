@@ -31,7 +31,9 @@ class Report < ActiveRecord::Base
   ## required
   validates_presence_of :title,
                         :content,
-                        :image
+                        :image,
+                        :user,
+                        :spot
 
   ## digits
   # string

@@ -25,7 +25,8 @@ class City < ActiveRecord::Base
   ### verify ###
 
   ## required
-  validates_presence_of :name
+  validates_presence_of :name,
+                        :county
 
   ## digits
   # string

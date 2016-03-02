@@ -23,7 +23,8 @@ class Zip < ActiveRecord::Base
   ### verify ###
 
   ## required
-  validates_presence_of :code
+  validates_presence_of :code,
+                        :city
 
 
   ## digits

@@ -49,7 +49,10 @@ class ReportsController < ApplicationController
         :display => "#{current_user.city.name}, #{current_user.city.county.state.two_digit_code}"
     }
     yelp_business_id = params[:report][:yelp_business_id]
-    return render :new if yelp_business_id.blank?
+    if yelp_business_id.blank?
+      @report.errors.add(:base, "spot is invalid!")
+      return render :new
+    end
 
     spot = Spot.where(yelp_business_id: yelp_business_id).first
     if spot.blank? then

@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   post "login" => "sessions#create"
   get "signup" => "users#new", :as => "signup"
 
-  resources :reports, only: [:index, :show, :new, :create, :edit, :update, :delete]
+  resources :reports, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   resources :users, only: [:index, :show, :new, :create, :edit, :update]
 
   get "users/:id/edit_password" => "users#edit_password", :as => "edit_password"

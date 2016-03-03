@@ -26,7 +26,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
   version :report, :if => :is_report? do
     version :thumb do
-      process :resize_to_fill => [350, 250, 'Center']
+      process :resize_to_fill => [350, 200, 'Center']
       process :convert => 'jpg'
     end
     version :normal do

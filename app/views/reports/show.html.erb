@@ -27,7 +27,7 @@
     <%= link_to 'yelp page', @report.spot.yelp_url, :target=>["_blank"] if @report.spot %><br>
   </p>
 
-  <% if current_user.right == 1 %>
+  <% if current_user && current_user.right == 1 %>
   <p>
     <%= link_to 'Delete', report_path(@report), :method => :delete, :confirm => 'Are you sure?' %>
   </p>

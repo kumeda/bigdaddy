@@ -12,7 +12,7 @@
   <!-- Projects Row -->
   <% @reports.each_with_index { |report, idx| %>
       <% if idx % 3 == 0 then %><div class="row"><% end %>
-          <div class="col-md-4 portfolio-item">
+          <div class="col-lg-4 portfolio-item">
             <div><%= image_tag(report.image.report.thumb.url, :style => "width:100%") %></div>
             <div>
               <h3><%= report.title.truncate(30) %></h3>
